@@ -37,7 +37,7 @@ export default class ImageGallery extends Component {
 
     return (
       <Section>
-        {photos && photos.hits == 0 && (
+        {photos && photos.hits === 0 && (
           <h1>Фото с именем {this.props.photoName} не найдено</h1>
         )}
 
