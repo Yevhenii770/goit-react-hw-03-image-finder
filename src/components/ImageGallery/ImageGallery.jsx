@@ -49,7 +49,7 @@ export default class ImageGallery extends Component {
           </Ul>
         )}
 
-        <ButtonLoadMore />
+        {photos && <ButtonLoadMore />}
       </Section>
     );
   }
