@@ -56,7 +56,7 @@ export default class App extends Component {
               };
             });
           } else {
-            alert(`По запросу ${nextQuery} ничего не найдено.`);
+            alert(`No results found for ${nextQuery}.`);
             this.setState({ status: 'idle' });
           }
         })
