@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { toast } from 'react-toastify';
 import {
   Header,
@@ -10,25 +11,27 @@ import {
 import { ImSphere } from 'react-icons/im';
 
 export default class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
   state = {
-    searchbarPhotoName: '',
+    value: '',
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleInputChange = e => {
+    this.setState({ value: e.currentTarget.value });
+  };
 
-    if (this.state.searchbarPhotoName.trim() === '') {
-      toast.error('Введите имя поиска');
+  handleSubmit = e => {
+    e.preventDefault();
+
+    if (this.state.value.trim() === '') {
+      toast.warning('Enter data in the search field!');
       return;
     }
-    this.props.onSubmitName(this.state.searchbarPhotoName);
-    this.setState({ searchbarPhotoName: '' });
-  };
 
-  handleNameChange = event => {
-    this.setState({
-      searchbarPhotoName: event.currentTarget.value.toLowerCase(),
-    });
+    this.props.onSubmit(this.state.value.trim().toLowerCase());
+    this.setState({ value: '' });
   };
 
   render() {
@@ -45,8 +48,8 @@ export default class Searchbar extends Component {
               autoComplete="off"
               autoFocus
               placeholder="Search images and photos"
-              value={this.state.photoName}
-              onChange={this.handleNameChange}
+              onChange={this.handleInputChange}
+              value={this.state.value}
             />
           </SearchForm>
         </label>
@@ -54,3 +57,7 @@ export default class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

@@ -1,7 +1,9 @@
 import { Button, Divbtn } from './Button.styled';
-const ButtonLoadMore = () => (
+const ButtonLoadMore = ({ handleClickBtn }) => (
   <Divbtn>
-    <Button type="button">Load more</Button>
+    <Button type="button" onClick={handleClickBtn}>
+      Load more
+    </Button>
   </Divbtn>
 );
 

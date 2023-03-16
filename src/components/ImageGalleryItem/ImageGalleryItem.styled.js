@@ -9,7 +9,7 @@ export const GalleryItem = styled.li`
 export const Img = styled.img`
   width: 350px;
   height: 260px;
-  border-radius: 10px;
+  border-radius: 8px;
   object-fit: cover;
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   :hover {
