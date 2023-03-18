@@ -48,6 +48,7 @@ export default class App extends Component {
               return { id, webformatURL, largeImageURL, tags };
             }
           );
+
           if (images.length > 0) {
             this.setState(prevState => {
               return {
@@ -65,9 +66,10 @@ export default class App extends Component {
   }
 
   handleSubmitInput = newQuery => {
-    if (newQuery !== this.state.name) {
-      this.setState({ name: newQuery, page: 1, status: 'pending' });
+    if (newQuery === this.state.name) {
+      return;
     }
+    this.setState({ name: newQuery, page: 1, status: 'pending' });
   };
 
   handleClickImg = event => {
@@ -84,12 +86,6 @@ export default class App extends Component {
     this.setState(({ page }) => {
       return { page: page + 1, status: 'pending' };
     });
-  };
-
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
   };
 
   render() {
@@ -146,12 +142,15 @@ export default class App extends Component {
             </Modal>
           )}
           <div>
-            <Searchbar onSubmit={this.handleFormSubmit} />
+            <Searchbar onSubmit={this.handleSubmitInput} />
             <ImageGallery
               onClickImg={this.handleClickImg}
               query={this.state.query}
             />
-            <ButtonLoadMore handleClickBtn={this.handleClickBtn} />
+
+            {this.state.query.length > 12 && (
+              <ButtonLoadMore handleClickBtn={this.handleClickBtn} />
+            )}
           </div>
         </>
       );

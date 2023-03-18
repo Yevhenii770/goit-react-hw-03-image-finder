@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { toast } from 'react-toastify';
 import {
@@ -11,9 +10,6 @@ import {
 import { ImSphere } from 'react-icons/im';
 
 export default class Searchbar extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
   state = {
     value: '',
   };
@@ -31,6 +27,7 @@ export default class Searchbar extends Component {
     }
 
     this.props.onSubmit(this.state.value.trim().toLowerCase());
+
     this.setState({ value: '' });
   };
 
@@ -57,7 +54,3 @@ export default class Searchbar extends Component {
     );
   }
 }
-
-Searchbar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
