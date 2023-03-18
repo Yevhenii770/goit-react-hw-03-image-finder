@@ -54,6 +54,7 @@ export default class App extends Component {
               return {
                 query: [...prevState.query, ...images],
                 status: 'resolved',
+                btnActivate: true,
               };
             });
             if (images.length > 0 && images.length < 12) {
