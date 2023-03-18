@@ -19,6 +19,7 @@ export default class App extends Component {
     modalImg: '',
     error: null,
     modalAlt: '',
+    btnActivate: true,
   };
 
   componentDidUpdate(_, prevState) {
@@ -27,7 +28,6 @@ export default class App extends Component {
 
     const prevPage = prevState.page;
     const nextPage = this.state.page;
-
     if (nextPage > 1) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
@@ -56,6 +56,9 @@ export default class App extends Component {
                 status: 'resolved',
               };
             });
+            if (images.length > 0 && images.length < 12) {
+              this.setState({ btnActivate: false });
+            }
           } else {
             alert(`No results found for ${nextQuery}.`);
             this.setState({ status: 'idle' });
@@ -88,8 +91,15 @@ export default class App extends Component {
     });
   };
 
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
   render() {
-    const { query, showModal, modalImg, modalAlt, error, status } = this.state;
+    const { query, showModal, modalImg, modalAlt, error, status, btnActivate } =
+      this.state;
 
     if (status === 'idle') {
       return (
@@ -143,12 +153,9 @@ export default class App extends Component {
           )}
           <div>
             <Searchbar onSubmit={this.handleSubmitInput} />
-            <ImageGallery
-              onClickImg={this.handleClickImg}
-              query={this.state.query}
-            />
+            <ImageGallery onClickImg={this.handleClickImg} query={query} />
 
-            {this.state.query.length > 12 && (
+            {btnActivate && (
               <ButtonLoadMore handleClickBtn={this.handleClickBtn} />
             )}
           </div>
